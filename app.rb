@@ -29,6 +29,9 @@ helpers do
   def get_domain_details domain
     $redis.hgetall redis_key(domain)
   end
+  def to_href domain
+    "http://#{domain}/"
+  end
 end
 
 get '/blogs' do
@@ -43,6 +46,13 @@ get '/blogs.txt' do
   domains = get_domains
   etag domains.length
   domains.join("\n")
+end
+
+get '/hrefs.txt' do
+  content_type :text
+  domains = get_domains
+  etag domains.length
+  domains.map { |d| to_href(d) }.join("\n")
 end
 
 get '/blog/:domain' do |domain|
