@@ -9,7 +9,7 @@ module BlogTracker
     def add domain, source, type
       r = self.class.post("#{host}/blog/#{domain}", {
         body: { source: source, type: type } })
-      r
+      r.code == 200
     end
     def detail domain
       self.class.get("#{host}/blog/#{domain}").parsed_response
