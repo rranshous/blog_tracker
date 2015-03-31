@@ -1,3 +1,3 @@
 source 'http://rubygems.org'
 gem 'sinatra'
-gem 'redis'
+gem 'solecist', '~>0.0.1'
