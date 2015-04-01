@@ -10,13 +10,6 @@ get '/blogs' do
   domains.to_json
 end
 
-get '/blogs.txt' do
-  content_type :text
-  domains = Blog.get_domains
-  etag domains.length
-  domains.join("\n")
-end
-
 get '/hrefs.txt' do
   content_type :text
   domains = Blog.get_domains
@@ -38,4 +31,16 @@ post '/blog/:domain' do |domain|
   end
   Blog.add_domain domain, source, type
   puts "added: #{domain}"
+  redirect "/blog/#{domain}", 301
+end
+
+get '/blog/:domain/new' do |domain|
+  content_type :html
+  <<-EOS
+  <form action="/blog/#{domain}" method="POST">
+    <label>source</label><input type="text" name="source"/>
+    <label>type</label><input type="text" name="type"/>
+    <input type="submit"/>
+  </form>
+  EOS
 end
