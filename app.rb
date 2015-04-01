@@ -14,7 +14,7 @@ get '/hrefs.txt' do
   content_type :text
   domains = Blog.get_domains
   etag domains.length
-  domains.map { |d| to_href(d) }.join("\n")
+  domains.map { |d| Blog.to_href(d) }.join("\n")
 end
 
 get '/blog/:domain' do |domain|
