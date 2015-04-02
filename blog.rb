@@ -16,7 +16,6 @@ class Blog
   end
   def self.domain_exists? domain
     r = @@soleclient.get(domain)
-    puts "DOMAIN EXISTS?: #{r}"
     r != nil
   end
   def self.add_domain domain, source, type
@@ -27,7 +26,7 @@ class Blog
       created_at: now,
       type: type,
       source: source
-    }, @@solecist_views.last
+    }, @@solecist_views.last, { source: source }
   end
   def self.get_domain_details domain
     @@soleclient.get domain

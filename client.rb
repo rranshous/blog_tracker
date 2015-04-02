@@ -3,7 +3,7 @@ require 'httparty'
 module BlogTracker
   class Client
     include HTTParty
-    def initialize host
+    def initialize host=nil
       @host = host
     end
     def host
